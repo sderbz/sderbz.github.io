@@ -94,10 +94,8 @@ p {
     <p style="color: #8b949e;">What is a Hallways of despair?</p>
     <p>Hallways of despair is a 2 hour long backrooms movie ive been working since the end of may 2024. Currently its 20% done and has the teaser-trailer released </p>
     
-    <!-- Контейнер с плеером. Замени ID видео (после /embed/) на ID своего тизера -->
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/watch?v=vBxmkkT9lNs" allowfullscreen></iframe>
-    </div>
+    <!-- Сюда скрипт сам безопасно вставит рабочий плеер -->
+    <div class="video-container" id="player-box"></div>
 </section>
 
 <!-- ================= СТРАНИЦА: MY ADDONS ================= -->
@@ -130,6 +128,13 @@ function go(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
+
+    // Безопасная сборка рабочего плеера при открытии вкладки фильма
+    const container = document.getElementById('player-box');
+    if (id === 'hallways' && container) {
+        const hash = "vBxmkkT9lNs";
+        container.innerHTML = `<iframe src="https://youtube.com{hash}" allowfullscreen></iframe>`;
+    }
 }
 </script>
 
