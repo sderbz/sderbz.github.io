@@ -6,12 +6,11 @@
 <title>sdz</title>
 <style>
 body {
-    /* Настройки фона: заменяй background-image на путь к своему рендеру */
     background-image: linear-gradient(rgba(25, 27, 31, 0.85), rgba(25, 27, 31, 0.85)), url('neighborhood_new.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-color: #191b1f; /* Запасной цвет, пока картинка грузится */
+    background-color: #191b1f;
     
     color: #e2e8f0;
     font-family: Helvetica, Arial, sans-serif;
@@ -53,6 +52,24 @@ p {
     margin: 16px 0;
     line-height: 1.5;
 }
+/* Адаптивный контейнер для YouTube плеера (пропорции 16:9) */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-top: 20px;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
 </style>
 </head>
 <body>
@@ -63,7 +80,6 @@ p {
     <p style="color: #8b949e;">17 y.o Cgi environment artist</p>
     <br>
     <h2>projects</h2>
-    <!-- Ссылка теперь ведет на внутреннюю страницу проекта -->
     <p><span class="link" onclick="go('hallways')">Hallways Of Despair</span></p>
     <p><span class="link" onclick="go('addons')">my addons</span></p>
     <p><span class="link" onclick="go('gallery')">gallery</span></p>
@@ -75,15 +91,20 @@ p {
 <section id="hallways">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>Hallways Of Despair</h2>
-    <p style="color: #8b949e;">pizdaxyu</p>
-    <p>ЯЙЦА ГЛИСТЫ</p>
+    <p style="color: #8b949e;">What is a Hallways of despair?</p>
+    <p>Hallways of despair is a 2 hour long backrooms movie ive been working since the end of may 2024. Currently its 20% done and has the teaser-trailer released </p>
+    
+    <!-- Контейнер с плеером. Замени ID видео (после /embed/) на ID своего тизера -->
+    <div class="video-container">
+        <iframe src="https://youtube.com" allowfullscreen></iframe>
+    </div>
 </section>
 
 <!-- ================= СТРАНИЦА: MY ADDONS ================= -->
 <section id="addons">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my addons</h2>
-    <p><a href="https://github.com" target="_blank">Camera dolboebify</a></p>
+    <p><a href="https://github.com/sderbz/camera_dolboebify" target="_blank">Camera dolboebify</a></p>
 </section>
 
 <!-- ================= СТРАНИЦА: GALLERY ================= -->
