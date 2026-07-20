@@ -2,11 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sdz</title>
 <style>
 body {
-    background: white;
-    color: #6bbcff;
+    background: #191b1f; /* Спокойный, глубокий темно-серый цвет */
+    color: #e2e8f0;      /* Мягкий белый, не бьющий по глазам */
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     max-width: 900px;
@@ -14,14 +15,21 @@ body {
     margin: 0 auto;
     padding: 80px 20px 20px 20px;
     box-sizing: border-box;
+    letter-spacing: -0.02em; /* Чуть плотнее шрифт для эстетики */
 }
 a, .link {
-    color: #6bbcff;
+    color: #79c0ff;      /* Смягченный, пастельно-голубой цвет */
     text-decoration: none;
     cursor: pointer;
+    transition: color 0.2s ease; /* Плавное изменение цвета */
 }
 a:hover, .link:hover {
+    color: #a5d6ff;      /* Более светлый тон при наведении */
     text-decoration: underline;
+}
+h1, h2 {
+    color: #ffffff;      /* Яркий белый только для заголовков */
+    font-weight: 800;
 }
 section {
     display: none;
@@ -31,8 +39,13 @@ section.active {
 }
 .back {
     display: inline-block;
-    margin-bottom: 20px;
-    color: #999;
+    margin-bottom: 25px;
+    color: #8b949e;      /* Приглушенный серый для кнопки "назад" */
+    font-size: 14px;
+}
+p {
+    margin: 16px 0;
+    line-height: 1.5;
 }
 </style>
 </head>
@@ -40,9 +53,9 @@ section.active {
 
 <section id="main" class="active">
     <h1>sdz</h1>
-    <p>17 y.o Cgi environment artist</p>
+    <p style="color: #8b949e;">17 y.o Cgi environment artist</p>
     <br>
-    <h2>Projects</h2>
+    <h2>projects</h2>
     <p><a href="#">Hallways Of Despair</a></p>
     <p><span class="link" onclick="go('addons')">my addons</span></p>
     <p><span class="link" onclick="go('gallery')">gallery</span></p>
@@ -52,24 +65,24 @@ section.active {
 
 <section id="addons">
     <span class="link back" onclick="go('main')">← back</span>
-    <h2>My addons</h2>
-    <p><a href="https://github.com/sderbz/camera_dolboebify" target="_blank">Camera dolboebify</a></p>
-    <!-- Добавляй новые аддоны сюда -->
+    <h2>my addons</h2>
+    <p><a href="https://github.com" target="_blank">Camera dolboebify</a></p>
+    <p><a href="#">Next addon name</a></p>
 </section>
 
 <section id="gallery">
     <span class="link back" onclick="go('main')">← back</span>
-    <h2>Gallery</h2>
+    <h2>gallery</h2>
 </section>
 
 <section id="footages">
     <span class="link back" onclick="go('main')">← back</span>
-    <h2>My digicams example footages</h2>
+    <h2>my digicams example footages</h2>
 </section>
 
 <section id="noise">
     <span class="link back" onclick="go('main')">← back</span>
-    <h2>My noise overlays</h2>
+    <h2>my noise overlays</h2>
 </section>
 
 <script>
