@@ -6,8 +6,14 @@
 <title>sdz</title>
 <style>
 body {
-    background: #191b1f; /* Спокойный, глубокий темно-серый цвет */
-    color: #e2e8f0;      /* Мягкий белый, не бьющий по глазам */
+    /* Настройки фона: заменяй background-image на путь к своему рендеру */
+    background-image: linear-gradient(rgba(25, 27, 31, 0.85), rgba(25, 27, 31, 0.85)), url('neighborhood_new.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #191b1f; /* Запасной цвет, пока картинка грузится */
+    
+    color: #e2e8f0;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     max-width: 900px;
@@ -15,20 +21,20 @@ body {
     margin: 0 auto;
     padding: 80px 20px 20px 20px;
     box-sizing: border-box;
-    letter-spacing: -0.02em; /* Чуть плотнее шрифт для эстетики */
+    letter-spacing: -0.02em;
 }
 a, .link {
-    color: #79c0ff;      /* Смягченный, пастельно-голубой цвет */
+    color: #79c0ff;
     text-decoration: none;
     cursor: pointer;
-    transition: color 0.2s ease; /* Плавное изменение цвета */
+    transition: color 0.2s ease;
 }
 a:hover, .link:hover {
-    color: #a5d6ff;      /* Более светлый тон при наведении */
+    color: #a5d6ff;
     text-decoration: underline;
 }
 h1, h2 {
-    color: #ffffff;      /* Яркий белый только для заголовков */
+    color: #ffffff;
     font-weight: 800;
 }
 section {
@@ -40,7 +46,7 @@ section.active {
 .back {
     display: inline-block;
     margin-bottom: 25px;
-    color: #8b949e;      /* Приглушенный серый для кнопки "назад" */
+    color: #8b949e;
     font-size: 14px;
 }
 p {
@@ -51,35 +57,48 @@ p {
 </head>
 <body>
 
+<!-- ================= ГЛАВНАЯ СТРАНИЦА ================= -->
 <section id="main" class="active">
     <h1>sdz</h1>
     <p style="color: #8b949e;">17 y.o Cgi environment artist</p>
     <br>
     <h2>projects</h2>
-    <p><a href="#">Hallways Of Despair</a></p>
+    <!-- Ссылка теперь ведет на внутреннюю страницу проекта -->
+    <p><span class="link" onclick="go('hallways')">Hallways Of Despair</span></p>
     <p><span class="link" onclick="go('addons')">my addons</span></p>
     <p><span class="link" onclick="go('gallery')">gallery</span></p>
     <p><span class="link" onclick="go('footages')">my digicams example footages</span></p>
     <p><span class="link" onclick="go('noise')">my noise overlays</span></p>
 </section>
 
+<!-- ================= СТРАНИЦА: HALLWAYS OF DESPAIR ================= -->
+<section id="hallways">
+    <span class="link back" onclick="go('main')">← back</span>
+    <h2>Hallways Of Despair</h2>
+    <p style="color: #8b949e;">pizdaxyu</p>
+    <p>ЯЙЦА ГЛИСТЫ</p>
+</section>
+
+<!-- ================= СТРАНИЦА: MY ADDONS ================= -->
 <section id="addons">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my addons</h2>
     <p><a href="https://github.com" target="_blank">Camera dolboebify</a></p>
-    <p><a href="#">Next addon name</a></p>
 </section>
 
+<!-- ================= СТРАНИЦА: GALLERY ================= -->
 <section id="gallery">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>gallery</h2>
 </section>
 
+<!-- ================= СТРАНИЦА: FOOTAGES ================= -->
 <section id="footages">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my digicams example footages</h2>
 </section>
 
+<!-- ================= СТРАНИЦА: NOISE ================= -->
 <section id="noise">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my noise overlays</h2>
