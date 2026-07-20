@@ -94,15 +94,17 @@ p {
     <p style="color: #8b949e;">What is a Hallways of despair?</p>
     <p>Hallways of despair is a 2 hour long backrooms movie ive been working since the end of may 2024. Currently its 20% done and has the teaser-trailer released </p>
     
-    <!-- Сюда скрипт сам безопасно вставит рабочий плеер -->
-    <div class="video-container" id="player-box"></div>
+    <!-- Контейнер с плеером на чистом HTML -->
+    <div class="video-container">
+        <iframe src="https:&#47;&#47;://youtube.com&#47;embed&#47;vBxmkkT9lNs" allowfullscreen></iframe>
+    </div>
 </section>
 
 <!-- ================= СТРАНИЦА: MY ADDONS ================= -->
 <section id="addons">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my addons</h2>
-    <p><a href="https://github.com/sderbz/camera_dolboebify" target="_blank">Camera dolboebify</a></p>
+    <p><a href="https://github.com" target="_blank">Camera dolboebify</a></p>
 </section>
 
 <!-- ================= СТРАНИЦА: GALLERY ================= -->
@@ -128,13 +130,6 @@ function go(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
-
-    // Безопасная сборка рабочего плеера при открытии вкладки фильма
-    const container = document.getElementById('player-box');
-    if (id === 'hallways' && container) {
-        const hash = "vBxmkkT9lNs";
-        container.innerHTML = `<iframe src="https://youtube.com{hash}" allowfullscreen></iframe>`;
-    }
 }
 </script>
 
