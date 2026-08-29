@@ -78,8 +78,8 @@ p {
 </head>
 <body>
 
-<!-- Скрытый аудио-тег для фоновой музыки -->
-<audio id="bg-music" src="autumnalequinox.m4a" loop></audio>
+<!-- Скрытый аудио-тег без жестко прописанного источника -->
+<audio id="bg-music" loop></audio>
 
 <!-- ================= ГЛАВНАЯ СТРАНИЦА ================= -->
 <section id="main" class="active">
@@ -92,7 +92,6 @@ p {
     <p><span class="link" onclick="go('gallery')">gallery</span></p>
     <p><span class="link" onclick="go('footages')">my digicams example footages</span></p>
     <p><span class="link" onclick="go('noise')">my noise overlays</span></p>
-    <!-- Новая вкладка на главной -->
     <p><span class="link" onclick="go('about')">about me</span></p>
 </section>
 
@@ -104,12 +103,12 @@ p {
     <p>Hallways of despair is a 2 hour long backrooms movie ive been working since the end of may 2024. Currently its 20% done and has the teaser-trailer released </p>
     
     <!-- Картинка-превью, которая ведет на YouTube -->
-    <a href="https://www.youtube.com/watch?v=vBxmkkT9lNs" target="_blank" class="thumbnail-link">
+    <a href="https://youtube.com" target="_blank" class="thumbnail-link">
         <img src="thumbnail.jpg" alt="Watch Trailer">
     </a>
 
     <span class="yt-text">
-        <a href="https://www.youtube.com/watch?v=vBxmkkT9lNs" target="_blank">watch trailer on yt</a>
+        <a href="https://youtube.com" target="_blank">watch trailer on yt</a>
     </span>
 </section>
 
@@ -117,7 +116,7 @@ p {
 <section id="addons">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>my addons</h2>
-    <p><a href="https://github.com/sderbz/camera_dolboebify" target="_blank">Camera dolboebify</a></p>
+    <p><a href="https://github.com" target="_blank">Camera dolboebify</a></p>
 </section>
 
 <!-- ================= СТРАНИЦА: GALLERY ================= -->
@@ -142,23 +141,54 @@ p {
 <section id="about">
     <span class="link back" onclick="go('main')">← back</span>
     <h2>about me</h2>
-    <p>Hi, I am sdz, a 17-year-old CGI environment artist focusing on photorealistic environments and Liminal Spaces / Backrooms aesthetics.</p>
-    <p>I create 3D scenes, develop custom tools for Blender, and experiment with old digicam footage styles to achieve a vintage VHS look.</p>
-    <p style="color: #8b949e;">You can change this text anytime inside the index.html file.</p>
+    <p> example shit </p>
+    <p> penis</p>
+    <p style="color: #8b949e;">shut the fuck up.</p>
 </section>
 
 <script>
+// Навигация
 function go(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
-
-    // Запуск музыки при первом клике на любую кнопку навигации
-    const music = document.getElementById('bg-music');
-    if (music && music.paused) {
-        music.play().catch(err => console.log("Музыка ждет взаимодействия с сайтом"));
-    }
 }
+
+// Список треков для рандома (включая твои m4a и mp3 файлы)
+const playlist = [
+    'autumnalequinox.m4a',
+    'wedonthavemanydays.mp3',
+    'andheartbreaks.m4a',
+    'libetsdelay.mp3',
+    'burningmemory.m4a',
+    'backtherebenjamin.mp3'
+];
+
+// Выбираем случайный трек сразу при загрузке скрипта
+const randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
+const music = document.getElementById('bg-music');
+if (music) {
+    music.src = randomTrack;
+}
+
+// Запуск выбранного трека с плавным нарастанием громкости при первом клике
+document.addEventListener('click', function startMusic() {
+    if (music && music.paused) {
+        music.volume = 0; 
+        music.play().then(() => {
+            let fadeInterval = setInterval(() => {
+                if (music.volume < 0.95) {
+                    music.volume += 0.02;
+                } else {
+                    music.volume = 1;
+                    clearInterval(fadeInterval);
+                }
+            }, 60);
+        }).catch(err => console.log("Музыка ждет активности на странице"));
+        
+        document.removeEventListener('click', startMusic);
+    }
+});
 </script>
 
 </body>
