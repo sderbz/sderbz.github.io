@@ -283,7 +283,7 @@ p {
 </section>
 
 <script>
-// Плавная навигация с Fade-эффектом
+// Навигация между секциями
 function go(id) {
     const currentActive = document.querySelector('section.active');
     const nextTarget = document.getElementById(id);
@@ -301,7 +301,7 @@ function go(id) {
     }
 }
 
-// Список треков для рандома
+// Плейлист треков
 const playlist = [
     'autumnalequinox.m4a',
     'wedonthavemanydays.mp3',
@@ -330,7 +330,7 @@ if (volumeSlider && music) {
     });
 }
 
-// Функция старта сайта
+// Железобетонная функция старта
 function startSite() {
     const intro = document.getElementById('intro-screen');
     const volBox = document.getElementById('vol-box');
