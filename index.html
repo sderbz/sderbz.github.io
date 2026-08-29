@@ -36,12 +36,20 @@ h1, h2 {
     color: #ffffff;
     font-weight: 800;
 }
+
+/* Настройка плавных переходов между страницами */
 section {
     display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
 }
 section.active {
     display: block;
 }
+section.fade-in {
+    opacity: 1;
+}
+
 .back {
     display: inline-block;
     margin-bottom: 25px;
@@ -52,7 +60,6 @@ p {
     margin: 16px 0;
     line-height: 1.5;
 }
-/* Стили для кликабельного превью */
 .thumbnail-link {
     display: block;
     margin-top: 20px;
@@ -74,7 +81,6 @@ p {
     font-size: 15px;
     display: block;
 }
-/* Стили для ползунка громкости в самом верху экрана */
 .volume-control-box {
     position: fixed;
     top: 20px;
@@ -88,12 +94,8 @@ p {
     padding: 6px 14px;
     border-radius: 20px;
     backdrop-filter: blur(5px);
-}
-.volume-control-box span {
-    color: #8b949e;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 .volume-slider {
     -webkit-appearance: none;
@@ -112,31 +114,52 @@ p {
     height: 12px;
     border-radius: 50%;
     background: #79c0ff;
+}
+
+/* Стили для начального экрана (Intro) */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #191b1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s;
+}
+.enter-btn {
+    background: transparent;
+    border: 2px solid #79c0ff;
+    color: #79c0ff;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
     cursor: pointer;
-    transition: background 0.2s ease;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
 }
-.volume-slider::-webkit-slider-thumb:hover {
-    background: #a5d6ff;
-}
-.volume-slider::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    border: none;
-    border-radius: 50%;
+.enter-btn:hover {
     background: #79c0ff;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-.volume-slider::-moz-range-thumb:hover {
-    background: #a5d6ff;
+    color: #191b1f;
+    box-shadow: 0 0 15px rgba(121, 192, 255, 0.4);
 }
 </style>
 </head>
 <body>
 
+<!-- Начальный экран -->
+<div id="intro-screen">
+    <button class="enter-btn" onclick="startSite()">ENTER</button>
+</div>
+
 <!-- Контейнер с ползунком громкости -->
-<div class="volume-control-box">
-    <span>vol</span>
+<div class="volume-control-box" id="vol-box">
+    <span style="color: #8b949e; font-size: 12px; text-transform: uppercase;">vol</span>
     <input type="range" class="volume-slider" id="volume-range" min="0" max="1" step="0.01" value="1">
 </div>
 
@@ -164,7 +187,6 @@ p {
     <p style="color: #8b949e;">What is a Hallways of despair?</p>
     <p>Hallways of despair is a 2 hour long backrooms movie ive been working since the end of may 2024. Currently its 20% done and has the teaser-trailer released </p>
     
-    <!-- Картинка-превью, которая ведет на YouTube -->
     <a href="https://youtube.com" target="_blank" class="thumbnail-link">
         <img src="thumbnail.jpg" alt="Watch Trailer">
     </a>
@@ -205,18 +227,27 @@ p {
     <h2>about me</h2>
     <p>Hi, I am sdz, a 17-year-old CGI environment artist focusing on photorealistic environments and Liminal Spaces / Backrooms aesthetics.</p>
     <p>I create 3D scenes, develop custom tools for Blender, and experiment with old digicam footage styles to achieve a vintage VHS look.</p>
-    <p style="color: #8b949e;">You can change this text anytime inside the index.html file.</p>
 </section>
 
 <script>
-// Навигация
+// Плавная навигация с Fade-эффектом
 function go(id) {
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0, 0);
+    const currentActive = document.querySelector('section.active');
+    const nextTarget = document.getElementById(id);
+    
+    if (currentActive && nextTarget) {
+        currentActive.classList.remove('fade-in');
+        setTimeout(() => {
+            currentActive.classList.remove('active');
+            nextTarget.classList.add('active');
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                nextTarget.classList.add('fade-in');
+            }, 50);
+        }, 400); // Время совпадает с transition в CSS
+    }
 }
 
-// Список треков для рандома (autumnalequinox изменен на m4a)
 const playlist = [
     'autumnalequinox.m4a',
     'wedonthavemanydays.mp3',
@@ -226,7 +257,6 @@ const playlist = [
     'backtherebenjamin.mp3'
 ];
 
-// Выбираем случайный трек сразу при загрузке скрипта
 const randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
 const music = document.getElementById('bg-music');
 const volumeSlider = document.getElementById('volume-range');
@@ -235,40 +265,47 @@ if (music) {
     music.src = randomTrack;
 }
 
-// Переменная для отслеживания целевой громкости, выставленной пользователем
 let userVolume = 1;
 
-// Живое изменение громкости ползунком
 if (volumeSlider && music) {
     volumeSlider.addEventListener('input', (e) => {
         userVolume = parseFloat(e.target.value);
-        // Изменяем громкость напрямую только если плавное появление уже закончилось
         if (music.dataset.faded === "true") {
             music.volume = userVolume;
         }
     });
 }
 
-// Запуск выбранного трека с плавным нарастанием громкости при первом клике
-document.addEventListener('click', function startMusic() {
+// Функция активации сайта по кнопке ENTER
+function startSite() {
+    const intro = document.getElementById('intro-screen');
+    const volBox = document.getElementById('vol-box');
+    const mainSection = document.getElementById('main');
+    
+    // Плавно скрываем заставку
+    intro.style.opacity = '0';
+    intro.style.visibility = 'hidden';
+    
+    // Проявляем интерфейс сайта
+    mainSection.classList.add('fade-in');
+    volBox.style.opacity = '1';
+    
+    // Сразу запускаем музыку с плавным разгоном
     if (music && music.paused) {
         music.volume = 0; 
         music.play().then(() => {
             let fadeInterval = setInterval(() => {
-                // Наращиваем громкость, но не выше значения на ползунке
                 if (music.volume < userVolume - 0.02) {
                     music.volume += 0.02;
                 } else {
                     music.volume = userVolume;
-                    music.dataset.faded = "true"; // Флаг, что плавный старт завершен
+                    music.dataset.faded = "true";
                     clearInterval(fadeInterval);
                 }
             }, 60);
-        }).catch(err => console.log("Музыка ждет активности на странице"));
-        
-        document.removeEventListener('click', startMusic);
+        }).catch(err => console.log("Ошибка автоплея"));
     }
-});
+}
 </script>
 
 </body>
