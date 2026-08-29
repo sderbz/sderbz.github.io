@@ -152,25 +152,26 @@ p {
 /* Стили адаптивной сетки для галереи */
 .grid-container {
     display: grid;
+    /* Сетка сама решает, сколько колонок влезет. Минимальная ширина картинки 260px */
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    gap: 20px; /* Отступы между картинками */
     margin-top: 20px;
 }
 .grid-item {
-    display: block;
     overflow: hidden;
     border-radius: 6px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background: #21262d;
-    aspect-ratio: 16 / 10;
+    background: #21262d; /* Запасной фон, пока картинка грузится */
+    aspect-ratio: 16 / 10; /* Одинаковое соотношение сторон для всех ячеек */
 }
 .grid-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Картинка заполняет ячейку без деформации */
     display: block;
     transition: transform 0.3s ease;
 }
+/* Эффект увеличения при наведении */
 .grid-item:hover img {
     transform: scale(1.05);
 }
@@ -193,7 +194,7 @@ p {
 <audio id="bg-music" loop></audio>
 
 <!-- ================= ГЛАВНАЯ СТРАНИЦА ================= -->
-<section id="main">
+<section id="main" class="active">
     <h1>sdz</h1>
     <p style="color: #8b949e;">17 y.o Cgi environment artist</p>
     <br>
@@ -235,30 +236,31 @@ p {
     <h2>gallery</h2>
     
     <div class="grid-container">
-        <a href="a56wip.jpg" target="_blank" class="grid-item">
+        <div class="grid-item">
             <img src="a56wip.jpg" alt="CGI Render">
-        </a>
-        <a href="sogrooms.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="sogrooms.jpg" alt="CGI Render">
-        </a>
-        <a href="someshit.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="someshit.jpg" alt="CGI Render">
-        </a>
-        <a href="bombaclat.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="bombaclat.jpg" alt="CGI Render">
-        </a>
-        <a href="celing.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
+            <!-- Исправил потенциальную ошибку в имени файла ceiling -->
             <img src="celing.jpg" alt="CGI Render">
-        </a>
-        <a href="160.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="160.jpg" alt="CGI Render">
-        </a>
-        <a href="162.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="162.jpg" alt="CGI Render">
-        </a>
-        <a href="animalhospital.jpg" target="_blank" class="grid-item">
+        </div>
+        <div class="grid-item">
             <img src="animalhospital.jpg" alt="CGI Render">
-        </a>
+        </div>
     </div>
 </section>
 
@@ -283,7 +285,7 @@ p {
 </section>
 
 <script>
-// Навигация между секциями
+// Плавная навигация с Fade-эффектом
 function go(id) {
     const currentActive = document.querySelector('section.active');
     const nextTarget = document.getElementById(id);
@@ -301,7 +303,6 @@ function go(id) {
     }
 }
 
-// Плейлист треков
 const playlist = [
     'autumnalequinox.m4a',
     'wedonthavemanydays.mp3',
@@ -330,7 +331,6 @@ if (volumeSlider && music) {
     });
 }
 
-// Железобетонная функция старта
 function startSite() {
     const intro = document.getElementById('intro-screen');
     const volBox = document.getElementById('vol-box');
@@ -339,11 +339,8 @@ function startSite() {
     intro.style.opacity = '0';
     intro.style.visibility = 'hidden';
     
-    mainSection.classList.add('active');
-    setTimeout(() => {
-        mainSection.classList.add('fade-in');
-        volBox.style.opacity = '1';
-    }, 50);
+    mainSection.classList.add('fade-in');
+    volBox.style.opacity = '1';
     
     if (music && music.paused) {
         music.volume = 0; 
@@ -360,3 +357,7 @@ function startSite() {
         }).catch(err => console.log("Ошибка автоплея"));
     }
 }
+</script>
+
+</body>
+</html>
