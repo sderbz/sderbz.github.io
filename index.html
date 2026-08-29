@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,7 +162,7 @@ p {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     background: #21262d;
     aspect-ratio: 16 / 10;
-    cursor: pointer; /* Делаем курсор-указатель, показывая что картинка кликабельна */
+    cursor: pointer;
 }
 .grid-item img {
     width: 100%;
@@ -183,7 +182,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(11, 12, 16, 0.95); /* Глубокое темное размытие фона */
+    background: rgba(11, 12, 16, 0.95);
     z-index: 10000;
     display: flex;
     justify-content: center;
@@ -191,7 +190,7 @@ p {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    cursor: zoom-out; /* Курсор уменьшения при наведении на фон */
+    cursor: zoom-out;
 }
 .lightbox.active {
     opacity: 1;
@@ -200,7 +199,7 @@ p {
 .lightbox img {
     max-width: 90%;
     max-height: 90%;
-    object-fit: contain; /* Картинка сохраняет пропорции без обрезки */
+    object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
     transform: scale(0.95);
@@ -227,7 +226,7 @@ p {
 </div>
 <!-- Скрытый аудио-тег -->
 <audio id="bg-music" loop></audio>
-<!-- ================= ГЛАВНАЯ СТРАНИЦА ================= -->
+<!-- ================= ГЛАВНАЯ СТРАНИЦА ================= --><!-- Вернул класс active, чтобы страница изначально была прописана как стартовая в DOM -->
 <section id="main" class="active">
     <h1>sdz</h1>
     <p style="color: #8b949e;">17 y.o Cgi environment artist</p>
@@ -267,7 +266,6 @@ p {
     <h2>gallery</h2>
     
     <div class="grid-container">
-        <!-- Добавил событие onclick="openLightbox(this)" на каждую картинку -->
         <div class="grid-item" onclick="openLightbox(this)">
             <img src="a56wip.jpg" alt="CGI Render">
         </div>
@@ -331,20 +329,21 @@ function go(id) {
     }
 }
 
-// Функции для управления полноэкранным просмотром изображений
 function openLightbox(element) {
     const imgUrl = element.querySelector('img').src;
     document.getElementById('lightbox-img').src = imgUrl;
+    document.getElementById('lightbox').classList.add('active');
+}
 
-document.getElementById('lightbox').classList.add('active');
-}
 function closeLightbox() {
-document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lightbox').classList.remove('active');
 }
+
 const playlist = [
-'autumnalequinox.m4a',
-'wedonthavemanydays.mp3',
-'andheartbreaks.m4a',
+    'autumnalequinox.m4a',
+    'wedonthavemanydays.mp3',
+    'andheartbreaks.m4a',
+
 'libetsdelay.mp3',
 'burningmemory.m4a',
 'backtherebenjamin.mp3'
@@ -364,14 +363,19 @@ music.volume = userVolume;
 }
 });
 }
+// Полноценно исправленная функция старта сайта
 function startSite() {
 const intro = document.getElementById('intro-screen');
 const volBox = document.getElementById('vol-box');
 const mainSection = document.getElementById('main');
 intro.style.opacity = '0';
 intro.style.visibility = 'hidden';
+// Сначала принудительно даем главной странице класс active и следом запускаем fade-in анимацию
+mainSection.classList.add('active');
+setTimeout(() => {
 mainSection.classList.add('fade-in');
 volBox.style.opacity = '1';
+}, 50);
 if (music && music.paused) {
 music.volume = 0;
 music.play().then(() => {
@@ -387,4 +391,3 @@ clearInterval(fadeInterval);
 }).catch(err => console.log("Ошибка автоплея"));
 }
 }
-
