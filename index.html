@@ -62,7 +62,7 @@ p {
     transition: opacity 0.2s ease;
 }
 .thumbnail-link:hover {
-    opacity: 0.85; /* Легкое затухание при наведении */
+    opacity: 0.85; 
 }
 .thumbnail-link img {
     width: 100%;
@@ -78,6 +78,9 @@ p {
 </head>
 <body>
 
+<!-- Скрытый аудио-тег для фоновой музыки -->
+<audio id="bg-music" src="autumnalequinox.m4a" loop></audio>
+
 <!-- ================= ГЛАВНАЯ СТРАНИЦА ================= -->
 <section id="main" class="active">
     <h1>sdz</h1>
@@ -89,6 +92,8 @@ p {
     <p><span class="link" onclick="go('gallery')">gallery</span></p>
     <p><span class="link" onclick="go('footages')">my digicams example footages</span></p>
     <p><span class="link" onclick="go('noise')">my noise overlays</span></p>
+    <!-- Новая вкладка на главной -->
+    <p><span class="link" onclick="go('about')">about me</span></p>
 </section>
 
 <!-- ================= СТРАНИЦА: HALLWAYS OF DESPAIR ================= -->
@@ -133,11 +138,26 @@ p {
     <h2>my noise overlays</h2>
 </section>
 
+<!-- ================= СТРАНИЦА: ABOUT ME ================= -->
+<section id="about">
+    <span class="link back" onclick="go('main')">← back</span>
+    <h2>about me</h2>
+    <p>Hi, I am sdz, a 17-year-old CGI environment artist focusing on photorealistic environments and Liminal Spaces / Backrooms aesthetics.</p>
+    <p>I create 3D scenes, develop custom tools for Blender, and experiment with old digicam footage styles to achieve a vintage VHS look.</p>
+    <p style="color: #8b949e;">You can change this text anytime inside the index.html file.</p>
+</section>
+
 <script>
 function go(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
+
+    // Запуск музыки при первом клике на любую кнопку навигации
+    const music = document.getElementById('bg-music');
+    if (music && music.paused) {
+        music.play().catch(err => console.log("Музыка ждет взаимодействия с сайтом"));
+    }
 }
 </script>
 
